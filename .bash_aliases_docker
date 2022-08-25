@@ -1,0 +1,16 @@
+alias autorecondocker='docker run --network host -t -v "${PWD}:/results" suezawa/autorecon' 
+alias autoreconconsole='docker run --network host -it --entrypoint=/bin/bash -v /"${PWD}:/results" suezawa/autorecon'
+
+alias dockershell="docker run --rm -i -t --entrypoint=/bin/bash"
+alias dockershellsh="docker run --rm -i -t --entrypoint=/bin/sh"
+alias impacketpython="docker run --rm -it rflathers/impacket"
+alias impacketconsole="docker run --rm -i -t --entrypoint=/bin/sh rflathers/impacket"
+
+
+alias evilwinrm='docker run --rm -ti --name evil-winrm -v "${HOME}/targetTools/ps1_scripts:/ps1_scripts" -v "${HOME}/targetTools/exe_files:/exe_files" -v "${HOME}/targetTools/harvested:/data" oscarakaelvis/evil-winrm  -s '/ps1_scripts/' -e '/exe_files/' -i $TARGET -u "$TARGETID" -p "$TARGETPASS"'
+alias evilwinrmconsole='docker run --rm  --entrypoint=/bin/bash -ti --name evil-winrm -v "${HOME}/targetTools/ps1_scripts:/ps1_scripts" -v "${HOME}/targetTools/exe_files:/exe_files" -v "${HOME}/targetTools/harvested:/data" oscarakaelvis/evil-winrm  -s '/ps1_scripts/' -e '/exe_files/''
+smbservehere() {
+    local sharename
+    [[ -z $1 ]] && sharename="SHARE" || sharename=$1
+    docker run --rm -it -p 445:445 -v "${PWD}:/tmp/serve" rflathers/impacket smbserver.py -smb2support $sharename /tmp/serve
+}
