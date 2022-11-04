@@ -1,0 +1,15 @@
+#docker run --rm -i -t --entrypoint=/bin/bash v /home/beed2112:/mystuff  impacket
+
+FROM python:2
+RUN apt-get update
+RUN apt-get install -y git && pip install --upgrade pip
+RUN pip install ldap3==2.5.1 \
+    future \
+    dnspython \
+    cryptography==2.3 \
+    MarkupSafe==0.23
+RUN git clone -b impacket_0_9_24  https://github.com/CoreSecurity/impacket.git
+WORKDIR impacket
+RUN pip install .
+WORKDIR examples
+ENTRYPOINT ["/bin/bash"]
