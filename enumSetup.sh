@@ -54,7 +54,7 @@ echo  begin script scan of open ports
 sudo nmap -p \$(cat "scans/portlist") -T5 -sV --version-all --script default,auth,brute,vuln -oN "scans/scripts.txt" -oX "scans/xml/scripts.xml" -Pn $entryip
 echo  ----------------------------------------
 echo  begin udp scan ports
-sudo nmap -T5 -sU --top-ports 60 -oN "scans/udp.txt" -oX "scans/xml/udp.xml" $entryip
+sudo nmap -T5 -sU --top-ports 60 --script default,auth,brute,vuln -oN "scans/udp.txt" -oX "scans/xml/udp.xml" $entryip
 EOF
 
 # Create DNS update script
